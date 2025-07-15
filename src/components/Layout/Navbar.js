@@ -1,20 +1,62 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-  // For demo, not using auth context yet
-  const isAdmin = false;
+  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      navigate(`/products?search=${encodeURIComponent(search.trim())}`);
+      setSearch('');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  const isLoggedIn = !!localStorage.getItem("token");
+
   return (
     <nav className="navbar">
-      <div className="navbar-logo"><Link to="/">MiniShop</Link></div>
+      <div className="navbar-left">
+        <Link to="/cart" className="navbar-cart-icon" title="Cart">
+          <span role="img" aria-label="cart" style={{fontSize: '1.8em', marginRight: '0.3em'}}>🛒</span>
+        </Link>
+        <Link to="/" className="navbar-logo">  Ease-Shop</Link>
+      </div>
       <ul className="navbar-links">
-        <li><Link to="/products">Products</Link></li>
-        <li><Link to="/cart">Cart</Link></li>
-        <li><Link to="/orders">Orders</Link></li>
-        {isAdmin && <li><Link to="/admin">Admin</Link></li>}
-        <li><Link to="/login">Login</Link> / <Link to="/register">Register</Link></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/products">Shop</Link></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
+      <form className="navbar-search" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        <button type="submit" className="navbar-search-icon" title="Search">
+          <span role="img" aria-label="search">🔍</span>
+        </button>
+      </form>
+      <div className="navbar-right">
+        <Link to="/login" className="navbar-user-icon" title="Login">
+          <span role="img" aria-label="user">👤</span>
+        </Link>
+        {isLoggedIn && (
+          <button onClick={handleLogout} className="logout-btn">
+            Logout
+          </button>
+        )}
+      </div>
     </nav>
   );
 };

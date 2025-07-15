@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { fetchAPI } from '../../api';
 import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const location = useLocation();
+
   useEffect(() => {
     fetchAPI('/products').then(setProducts);
   }, []);
+
+  const params = new URLSearchParams(location.search);
+  const search = params.get('search')?.toLowerCase() || '';
+  const filtered = search
+    ? products.filter(product =>
+        (product.name && product.name.toLowerCase().includes(search)) ||
+        (product.title && product.title.toLowerCase().includes(search))
+      )
+    : products;
+
+  // Sort products by _id
+  const sorted = [...filtered].sort((a, b) => (a._id > b._id ? 1 : -1));
+
   return (
     <div className="products-list">
       <h2>Products</h2>
       <div className="products-grid">
-        {products.map(p => (
-          <div className="product-card" key={p._id}>
-            <img src={p.image || 'https://via.placeholder.com/150'} alt={p.name} />
-            <h3>{p.name}</h3>
-            <p>${p.price}</p>
-            <Link to={`/products/${p._id}`} className="btn-main">View</Link>
+        {sorted.length === 0 && <div>No products found.</div>}
+        {sorted.map(product => (
+          <div key={product._id} className="product-card">
+            <img src={product.image} alt={product.name || product.title} />
+            <p>{product.name || product.title}</p>
+            <p>${product.price}</p>
+            <Link to={`/products/${product._id}`} className="btn-main">View</Link>
           </div>
         ))}
       </div>

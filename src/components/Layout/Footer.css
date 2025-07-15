@@ -1,0 +1,27 @@
+.footer {
+  background: #fff;
+  padding: 2.5rem 2rem 1.2rem 2rem;
+  border-top: 1px solid #eee;
+  margin-top: 3rem;
+  color: #222;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.footer-section {
+  margin-bottom: 2rem;
+}
+.footer-section h3 {
+  margin-bottom: 0.7rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.footer-section p {
+  margin: 0;
+  color: #555;
+  font-size: 1.05rem;
+}
+.footer-bottom {
+  text-align: center;
+  color: #888;
+  font-size: 0.98rem;
+  margin-top: 1.5rem;
+}

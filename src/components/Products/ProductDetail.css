@@ -1,0 +1,20 @@
+.product-detail {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.product-detail img {
+  max-width: 250px;
+  border-radius: 8px;
+}
+.product-detail h2 {
+  margin-top: 0;
+}
+.cart-msg {
+  color: #388e3c;
+  margin-top: 1em;
+} 
