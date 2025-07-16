@@ -16,7 +16,7 @@ const Register = () => {
     setSuccess('');
     const body = { ...form };
     if (!body.adminCode) delete body.adminCode;
-    const res = await fetchAPI('/auth/register', 'POST', body);
+    const res = await fetchAPI('https://e-commerce-backend-es24.onrender.com/auth/register', 'POST', body);
     if (res.token) {
       setSuccess('Registration successful! Please login to continue.');
       setForm({ name: '', email: '', password: '', adminCode: '' });

@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
-    const res = await fetchAPI('/auth/login', 'POST', form);
+    const res = await fetchAPI('https://e-commerce-backend-es24.onrender.com/auth/login', 'POST', form);
     if (res.token) {
       localStorage.setItem('token', res.token);
       localStorage.setItem('user', JSON.stringify(res.user));

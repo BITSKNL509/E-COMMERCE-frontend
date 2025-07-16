@@ -8,7 +8,7 @@ const Products = () => {
   const location = useLocation();
 
   useEffect(() => {
-    fetchAPI('/products').then(setProducts);
+    fetchAPI('https://e-commerce-backend-es24.onrender.com/products').then(setProducts);
   }, []);
 
   const params = new URLSearchParams(location.search);

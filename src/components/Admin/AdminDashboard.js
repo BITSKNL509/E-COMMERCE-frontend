@@ -12,7 +12,7 @@ const AdminDashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("/api/products");
+      const res = await fetch("https://e-commerce-backend-es24.onrender.com/api/products");
       const contentType = res.headers.get("content-type");
       if (!res.ok) throw new Error("Failed to fetch products");
       if (contentType && contentType.includes("application/json")) {
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("/api/categories");
+      const res = await fetch("https://e-commerce-backend-es24.onrender.com/api/categories");
       if (!res.ok) throw new Error("Failed to fetch categories");
       const data = await res.json();
       setCategories(data);
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/api/products", {
+      const res = await fetch("https://e-commerce-backend-es24.onrender.com/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
   const handleDeleteProduct = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch(`https://e-commerce-backend-es24.onrender.com/api/products/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,
