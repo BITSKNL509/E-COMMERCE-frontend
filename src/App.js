@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Layout/Navbar';
 import Home from './components/Layout/Home';
@@ -12,7 +12,6 @@ import Footer from './components/Layout/Footer';
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminRoute from "./components/Admin/AdminRoute";
 import './App.css';
-import { Link } from "react-router-dom";
 
 function App() {
   return (
