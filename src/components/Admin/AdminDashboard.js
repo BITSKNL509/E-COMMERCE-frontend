@@ -102,34 +102,14 @@ const AdminDashboard = () => {
         <input name="stock" value={form.stock} onChange={handleInputChange} placeholder="Stock (optional)" type="number" min="0" className="admin-input" />
         <button type="submit" className="admin-add-btn">Add Product</button>
       </form>
-      <table className="admin-product-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Stock</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((prod) => (
-            <tr key={prod._id}>
-              <td>{prod.name}</td>
-              <td>${prod.price}</td>
-              <td>{prod.description}</td>
-              <td><img src={prod.image} alt={prod.name} style={{width: '60px', height: '60px', objectFit: 'cover'}} /></td>
-              <td>{prod.category?.name || prod.category}</td>
-              <td>{prod.stock}</td>
-              <td>
-                <button onClick={() => handleDeleteProduct(prod._id)} className="admin-delete-btn">Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ul className="admin-product-list">
+        {products.map((prod) => (
+          <li key={prod._id} className="admin-product-item">
+            <strong>{prod.name}</strong> - ${prod.price}
+            <button onClick={() => handleDeleteProduct(prod._id)} className="admin-delete-btn">Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
