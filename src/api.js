@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://e-commerce-backend-es24.onrender.com/api';
 
 export const fetchAPI = async (endpoint, method = 'GET', body, token) => {
   const res = await fetch(`${API_URL}${endpoint}`, {

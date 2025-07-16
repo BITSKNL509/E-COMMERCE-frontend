@@ -9,7 +9,7 @@ const ProductDetail = () => {
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    fetchAPI(`https://e-commerce-backend-es24.onrender.com/products/${id}`).then(setProduct);
+    fetchAPI(`/products/${id}`).then(setProduct);
   }, [id]);
 
   const addToCart = () => {
