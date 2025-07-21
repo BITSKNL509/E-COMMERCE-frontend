@@ -21,7 +21,6 @@ const Products = () => {
       )
     : products;
 
-  // Sort products by _id
   const sorted = [...filtered].sort((a, b) => (a._id > b._id ? 1 : -1));
 
   return (
