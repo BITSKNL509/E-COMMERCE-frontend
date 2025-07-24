@@ -4,6 +4,8 @@ const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [form, setForm] = useState({ name: "", price: "", description: "", image: "", category: "", stock: "" });
+  const [editingId, setEditingId] = useState(null);
+  const [newPrice, setNewPrice] = useState("");
 
   useEffect(() => {
     fetchProducts();
@@ -85,6 +87,25 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleUpdatePrice = async (id, price) => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`https://e-commerce-backend-es24.onrender.com/api/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ price: Number(price) }),
+      });
+      if (!res.ok) throw new Error("Failed to update price");
+      setEditingId(null);
+      fetchProducts();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   return (
     <div className="admin-dashboard">
       <h2>Admin Dashboard</h2>
@@ -105,7 +126,31 @@ const AdminDashboard = () => {
       <ul className="admin-product-list">
         {products.map((prod) => (
           <li key={prod._id} className="admin-product-item">
-            <strong>{prod.name}</strong> - ${prod.price}
+            <strong>{prod.name}</strong> - $
+            {editingId === prod._id ? (
+              <>
+                <input
+                  type="number"
+                  value={newPrice}
+                  onChange={e => setNewPrice(e.target.value)}
+                  style={{ width: "70px" }}
+                />
+                <button onClick={() => handleUpdatePrice(prod._id, newPrice)}>Save</button>
+                <button onClick={() => setEditingId(null)}>Cancel</button>
+              </>
+            ) : (
+              <>
+                {prod.price}
+                <button
+                  onClick={() => {
+                    setEditingId(prod._id);
+                    setNewPrice(prod.price);
+                  }}
+                >
+                  Edit
+                </button>
+              </>
+            )}
             <button onClick={() => handleDeleteProduct(prod._id)} className="admin-delete-btn">Delete</button>
           </li>
         ))}

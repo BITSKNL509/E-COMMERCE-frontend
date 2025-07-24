@@ -5,8 +5,8 @@ import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const location = useLocation();
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     fetchAPI('/products').then(setProducts).finally(() => setLoading(false));
@@ -21,22 +21,27 @@ const Products = () => {
       )
     : products;
 
+  // Sort products by _id
   const sorted = [...filtered].sort((a, b) => (a._id > b._id ? 1 : -1));
 
   return (
     <div className="products-list">
       <h2>Products</h2>
       <div className="products-grid">
-        {loading && <div>Loading products...</div>}
-        {!loading && sorted.length === 0 && <div>No products found.</div>}
-        {!loading && sorted.map(product => (
-          <div key={product._id} className="product-card">
-            <img src={product.image} alt={product.name || product.title} />
-            <p>{product.name || product.title}</p>
-            <p>${product.price}</p>
-            <Link to={`/products/${product._id}`} className="btn-main">View</Link>
-          </div>
-        ))}
+        {loading ? (
+          <div>Loading products...</div>
+        ) : sorted.length === 0 ? (
+          <div>No products found.</div>
+        ) : (
+          sorted.map(product => (
+            <div key={product._id} className="product-card">
+              <img src={product.image} alt={product.name || product.title} />
+              <p>{product.name || product.title}</p>
+              <p>${product.price}</p>
+              <Link to={`/products/${product._id}`} className="btn-main">View</Link>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

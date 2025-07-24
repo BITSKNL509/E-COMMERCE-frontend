@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const [search, setSearch] = useState('');
+  const [role, setRole] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setRole(user?.role);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -31,7 +37,7 @@ const Navbar = () => {
         <Link to="/" className="navbar-logo">  Ease-Shop</Link>
       </div>
       <ul className="navbar-links">
-        <li><Link to="/">Home</Link></li>
+        <li><Link to={role === 'admin' ? "/admin/dashboard" : "/"}>Home</Link></li>
         <li><Link to="/products">Shop</Link></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
