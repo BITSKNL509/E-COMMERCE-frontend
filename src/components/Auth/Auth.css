@@ -23,11 +23,12 @@
 }
 .auth-form input {
   width: 100%;
-  padding-right: 3px;
+  padding: 0 15px; /* Increased horizontal padding */
+  height: 50px;    /* Increased height */
   margin-bottom: 1.2em;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 1.08em;
+  font-size: 1.2em; /* Larger font size */
   background: #eaf2ff;
   transition: border 0.2s;
 }
