@@ -14,12 +14,20 @@ const Products = () => {
 
   const params = new URLSearchParams(location.search);
   const search = params.get('search')?.toLowerCase() || '';
-  const filtered = search
-    ? products.filter(product =>
-        (product.name && product.name.toLowerCase().includes(search)) ||
-        (product.title && product.title.toLowerCase().includes(search))
-      )
-    : products;
+  const category = params.get('category')?.toLowerCase() || '';
+
+  let filtered = products;
+  if (category) {
+    filtered = filtered.filter(product =>
+      product.category && product.category.toLowerCase() === category
+    );
+  }
+  if (search) {
+    filtered = filtered.filter(product =>
+      (product.name && product.name.toLowerCase().includes(search)) ||
+      (product.title && product.title.toLowerCase().includes(search))
+    );
+  }
 
   // Sort products by _id
   const sorted = [...filtered].sort((a, b) => (a._id > b._id ? 1 : -1));
